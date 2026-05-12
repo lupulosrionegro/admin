@@ -1,0 +1,672 @@
+{
+  "id": "9f006534-1ed4-410a-b120-ba2acf0a551a",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.accounts": {
+      "name": "accounts",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_account_id": {
+          "name": "provider_account_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "accounts_user_id_users_id_fk": {
+          "name": "accounts_user_id_users_id_fk",
+          "tableFrom": "accounts",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "accounts_provider_provider_account_id_pk": {
+          "name": "accounts_provider_provider_account_id_pk",
+          "columns": [
+            "provider",
+            "provider_account_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.hileras": {
+      "name": "hileras",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "variedad_id": {
+          "name": "variedad_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variedad_a_id": {
+          "name": "variedad_a_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variedad_b_id": {
+          "name": "variedad_b_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "split": {
+          "name": "split",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "poste": {
+          "name": "poste",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plantas": {
+          "name": "plantas",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lat1": {
+          "name": "lat1",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lng1": {
+          "name": "lng1",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lat2": {
+          "name": "lat2",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lng2": {
+          "name": "lng2",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "longitud_m": {
+          "name": "longitud_m",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ancho_m": {
+          "name": "ancho_m",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2.5
+        },
+        "anio": {
+          "name": "anio",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2024
+        },
+        "notas": {
+          "name": "notas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "hileras_variedad_id_variedades_id_fk": {
+          "name": "hileras_variedad_id_variedades_id_fk",
+          "tableFrom": "hileras",
+          "tableTo": "variedades",
+          "columnsFrom": [
+            "variedad_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "hileras_variedad_a_id_variedades_id_fk": {
+          "name": "hileras_variedad_a_id_variedades_id_fk",
+          "tableFrom": "hileras",
+          "tableTo": "variedades",
+          "columnsFrom": [
+            "variedad_a_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "hileras_variedad_b_id_variedades_id_fk": {
+          "name": "hileras_variedad_b_id_variedades_id_fk",
+          "tableFrom": "hileras",
+          "tableTo": "variedades",
+          "columnsFrom": [
+            "variedad_b_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.lecturas_sensor": {
+      "name": "lecturas_sensor",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "lote_id": {
+          "name": "lote_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sensor_id": {
+          "name": "sensor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "humedad": {
+          "name": "humedad",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "temperatura": {
+          "name": "temperatura",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variedad_id": {
+          "name": "variedad_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lecturas_sensor_lote_id_lotes_id_fk": {
+          "name": "lecturas_sensor_lote_id_lotes_id_fk",
+          "tableFrom": "lecturas_sensor",
+          "tableTo": "lotes",
+          "columnsFrom": [
+            "lote_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lecturas_sensor_variedad_id_variedades_id_fk": {
+          "name": "lecturas_sensor_variedad_id_variedades_id_fk",
+          "tableFrom": "lecturas_sensor",
+          "tableTo": "variedades",
+          "columnsFrom": [
+            "variedad_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.lotes": {
+      "name": "lotes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "numero_lote": {
+          "name": "numero_lote",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variedad_id": {
+          "name": "variedad_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "humedad": {
+          "name": "humedad",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "temperatura": {
+          "name": "temperatura",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "peso_gramos": {
+          "name": "peso_gramos",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cosecha": {
+          "name": "cosecha",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sensor_id": {
+          "name": "sensor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "foto_url": {
+          "name": "foto_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lab_pdf_url": {
+          "name": "lab_pdf_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qr_url": {
+          "name": "qr_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publicado": {
+          "name": "publicado",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "fecha_envasado": {
+          "name": "fecha_envasado",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lotes_variedad_id_variedades_id_fk": {
+          "name": "lotes_variedad_id_variedades_id_fk",
+          "tableFrom": "lotes",
+          "tableTo": "variedades",
+          "columnsFrom": [
+            "variedad_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "lotes_numero_lote_unique": {
+          "name": "lotes_numero_lote_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "numero_lote"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sessions": {
+      "name": "sessions",
+      "schema": "",
+      "columns": {
+        "session_token": {
+          "name": "session_token",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sessions_user_id_users_id_fk": {
+          "name": "sessions_user_id_users_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.variedades": {
+      "name": "variedades",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descripcion": {
+          "name": "descripcion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "activa": {
+          "name": "activa",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.verification_tokens": {
+      "name": "verification_tokens",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "verification_tokens_identifier_token_pk": {
+          "name": "verification_tokens_identifier_token_pk",
+          "columns": [
+            "identifier",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

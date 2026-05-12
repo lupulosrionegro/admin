@@ -1,0 +1,32 @@
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block !important;
+  }
+  .sidebar-close-btn {
+    display: inline-flex !important;
+  }
+  .hileras-sidebar {
+    position: fixed !important;
+    top: 0;
+    right: -280px;
+    bottom: 0;
+    width: 280px !important;
+    z-index: 2000;
+    border-left: 1px solid #1e281e !important;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+    transition: right 0.2s ease;
+  }
+  .hileras-sidebar.open {
+    right: 0;
+  }
+  .sidebar-overlay {
+    display: block !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hileras-sidebar {
+    width: 100% !important;
+    right: -100%;
+  }
+}

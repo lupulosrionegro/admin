@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="595" height="842" viewBox="0 0 595 842">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rye&amp;display=swap');
+      .num { font-family: 'Rye', Georgia, serif; }
+    </style>
+  </defs>
+  <rect width="595" height="842" fill="#fff"/>
+  <rect x="0" y="0" width="595" height="842" fill="none" stroke="#ccc" stroke-width="0.5"/>
+  <image href="/logo-lupulos.png" x="270" y="30" width="55" height="55" />
+  <text x="297" y="105" text-anchor="middle" font-size="13" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="80" y1="125" x2="515" y2="125" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="297" y="165" text-anchor="middle" font-size="15" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="3">HILERA N°</text>
+  <text x="297" y="265" text-anchor="middle" font-size="110" font-weight="bold" fill="#1a2a1a" class="num">4</text>
+  <line x1="80" y1="285" x2="515" y2="285" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="297" y="310" text-anchor="middle" font-size="42" font-weight="bold" fill="#e74c3c" font-family="monospace">SAAZ</text>
+       <text x="297" y="342" text-anchor="middle" font-size="22" fill="#555">122 plantas</text>
+  <line x1="80" y1="390" x2="515" y2="390" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="297" y="420" text-anchor="middle" font-size="16" fill="#444" font-family="monospace">AÑO: 2026</text>
+  
+  <text x="297" y="475" text-anchor="middle" font-size="12" fill="#999" font-family="monospace">www.lupulosrionegro.com</text>
+</svg>
