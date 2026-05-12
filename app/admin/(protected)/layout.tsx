@@ -34,7 +34,7 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#f5f5f7', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif" }}>
       <nav style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '0.5px solid rgba(255,255,255,0.08)', padding: '0 24px', height: 52, display: 'flex', alignItems: 'center', gap: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/cono-de-lupulo.png" alt="Lúpulos" style={{ width: 22, height: 22, display: 'inline-block' }} />
+          <img src="/logo-lupulos.png" alt="Lúpulos" style={{ width: 22, height: 22, borderRadius: '50%', display: 'inline-block', objectFit: 'cover' }} />
           <span style={{ fontWeight: 600, fontSize: 13, color: '#f5f5f7', letterSpacing: '-0.01em' }}>Hileras</span>
           <span style={{ fontSize: 10, color: '#98989d', background: 'rgba(255,255,255,0.06)', padding: '2px 8px', borderRadius: 20, border: '0.5px solid rgba(255,255,255,0.08)' }}>Admin</span>
         </div>
