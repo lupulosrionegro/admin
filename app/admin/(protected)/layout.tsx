@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from 'react'
-import { useSession, signOut as signOutNextAuth } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useRouter, usePathname } from 'next/navigation'
 
 export default function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
@@ -19,8 +19,8 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
     }
   }, [session, status, router])
 
-  const handleSignOut = async () => {
-    await signOutNextAuth({ callbackUrl: '/admin/login' })
+  const handleSignOut = () => {
+    window.location.href = '/api/auth/signout'
   }
 
   if (status === 'loading') {
