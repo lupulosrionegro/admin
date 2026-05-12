@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import './hileras.css'
 
@@ -361,7 +361,6 @@ function Sidebar({
   onToggleSidebar: () => void
 }) {
   const [saved, setSaved] = useState(false)
-  const previewRef = useRef<HTMLDivElement>(null)
   const [anchoHilera, setAnchoHilera] = useState(2.5)
 
   const updateField = (field: keyof Hilera, value: any) => {
@@ -374,12 +373,6 @@ function Sidebar({
       setAnchoHilera(selectedHilera.ancho_m)
     }
   }, [selectedHilera?.id, selectedIdx])
-
-  useEffect(() => {
-    if (selectedHilera && previewRef.current) {
-      previewRef.current.innerHTML = buildCartelHTML(selectedHilera, variedades)
-    }
-  }, [selectedHilera, variedades, selectedIdx])
 
   const handleSave = async () => {
     setSaved(true)
@@ -565,7 +558,7 @@ function Sidebar({
       {selectedHilera && (
         <div style={{ padding: '10px 12px', borderTop: '0.5px solid rgba(255,255,255,0.06)' }}>
           <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', marginBottom: 8, fontWeight: 600, textTransform: 'uppercase' }}>PREVISUALIZACIÓN</div>
-          <div className="cartel" ref={previewRef} style={{ background: '#fff', borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.4)', fontFamily: "'IBM Plex Sans', sans-serif", overflow: 'hidden' }} />
+          <div className="cartel" dangerouslySetInnerHTML={{ __html: buildCartelHTML(selectedHilera, variedades) }} style={{ background: '#fff', borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.4)', fontFamily: "'IBM Plex Sans', sans-serif", overflow: 'hidden' }} />
           <div style={{ display: 'flex', gap: 4, marginTop: 8 }}>
             <button onClick={() => downloadCartel(selectedHilera, variedades, 'a5')} style={{ flex: 1, padding: '6px', background: 'rgba(95,186,122,0.12)', color: '#5fba7a', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
               ⬇ A5
@@ -587,7 +580,7 @@ function Sidebar({
                       <span style={{ color: getColorForVariedad(nombreV), fontWeight: 500 }}>Hilera {h.poste} · {nombreV}</span>
                       <span style={{ color: '#636366' }}>{areaHa(h.longitud_m, h.ancho_m).toFixed(2)} ha</span>
                     </div>
-                    <button onClick={() => downloadCartel(h, variedades, 'a5')} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 14, padding: '4px 6px', lineHeight: 1 }} title="Descargar A5">⬇</button>
+                    <button onClick={() => downloadCartel(h, variedades, 'a5')} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 10, padding: '4px 6px', lineHeight: 1, fontFamily: "'SF Pro Text', system-ui, sans-serif" }} title="Descargar A5">A5</button>
                     <button onClick={() => downloadCartel(h, variedades, 'a4')} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 10, padding: '4px 6px', lineHeight: 1, fontFamily: "'SF Pro Text', system-ui, sans-serif" }} title="Descargar A4">A4</button>
                   </div>
                 )
@@ -737,7 +730,7 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
 
   const bottomY = sp ? 455 : 420
   const contentH = bottomY + 30
-  const svgH = format === 'a4' ? 877 : contentH
+  const svgH = format === 'a4' ? Math.max(contentH, 438) : Math.max(contentH, 437)
 
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
@@ -768,17 +761,17 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   const logoImg = new Image()
   let loaded = 0
   const targetW = format === 'a4' ? 3508 : 2480
-  const targetH = format === 'a4' ? 2480 : 1748
   const scale = targetW / W
+  const actualH = Math.round(svgH * scale)
   const render = () => {
     loaded++
     if (loaded < 2) return
     const canvas = document.createElement('canvas')
     canvas.width = targetW
-    canvas.height = targetH
+    canvas.height = actualH
     const ctx = canvas.getContext('2d')!
     ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, targetW, targetH)
+    ctx.fillRect(0, 0, targetW, actualH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
     ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
