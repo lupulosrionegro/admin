@@ -9,12 +9,11 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
+      { url: '/cono-de-lupulo.png', sizes: '192x192', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
-    apple: { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    apple: { url: '/cono-de-lupulo.png', sizes: '192x192', type: 'image/png' },
+    shortcut: { url: '/cono-de-lupulo.png', type: 'image/png' },
   },
   other: {
     'theme-color': '#0a0a0a',
@@ -29,6 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <head>
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/cono-de-lupulo.png" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/cono-de-lupulo.png" />
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
