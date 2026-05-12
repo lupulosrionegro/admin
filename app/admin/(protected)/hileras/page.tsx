@@ -266,7 +266,7 @@ export default function HilerasPage() {
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <span style={{ fontSize: 10, color: '#636366', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>-39.1468° S / -67.1482° O</span>
-          <span style={{ fontSize: 10, color: '#2a4a2a', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>● Líneas de hileras</span>
+          <a href="/admin" style={{ fontSize: 11, color: '#5fba7a', textDecoration: 'none', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>Panel →</a>
         </div>
       </header>
 
