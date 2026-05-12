@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import Providers from '@/components/providers'
 
 export const metadata: Metadata = {
-  title: 'Hileras · Lúpulos Río Negro',
+  title: 'LRN Admin · Lúpulos Río Negro',
   description: 'Gestión de hileras de lúpulo',
   manifest: '/site.webmanifest',
   icons: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     'theme-color': '#0a0a0a',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'apple-mobile-web-app-title': 'Hileras',
+    'apple-mobile-web-app-title': 'LRN Admin',
   },
 }
 
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Hileras" />
+        <meta name="apple-mobile-web-app-title" content="LRN Admin" />
       </head>
       <body>
         <script src="/register-sw.js" async />
