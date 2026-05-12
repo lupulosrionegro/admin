@@ -566,9 +566,14 @@ function Sidebar({
         <div style={{ padding: '10px 12px', borderTop: '0.5px solid rgba(255,255,255,0.06)' }}>
           <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', marginBottom: 8, fontWeight: 600, textTransform: 'uppercase' }}>PREVISUALIZACIÓN</div>
           <div className="cartel" ref={previewRef} style={{ background: '#fff', borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.4)', fontFamily: "'IBM Plex Sans', sans-serif", overflow: 'hidden' }} />
-          <button onClick={() => downloadCartel(selectedHilera, variedades)} style={{ marginTop: 8, width: '100%', padding: '6px', background: 'rgba(95,186,122,0.12)', color: '#5fba7a', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, fontSize: 11, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
-            ⬇ Descargar JPEG
-          </button>
+          <div style={{ display: 'flex', gap: 4, marginTop: 8 }}>
+            <button onClick={() => downloadCartel(selectedHilera, variedades, 'a5')} style={{ flex: 1, padding: '6px', background: 'rgba(95,186,122,0.12)', color: '#5fba7a', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
+              ⬇ A5
+            </button>
+            <button onClick={() => downloadCartel(selectedHilera, variedades, 'a4')} style={{ flex: 1, padding: '6px', background: 'rgba(95,186,122,0.12)', color: '#5fba7a', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
+              ⬇ A4
+            </button>
+          </div>
           {savedHileras.length > 0 && (
             <div style={{ marginTop: 8 }}>
               <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', marginBottom: 4, fontWeight: 600, textTransform: 'uppercase' }}>CARTELES</div>
@@ -582,9 +587,8 @@ function Sidebar({
                       <span style={{ color: getColorForVariedad(nombreV), fontWeight: 500 }}>Hilera {h.poste} · {nombreV}</span>
                       <span style={{ color: '#636366' }}>{areaHa(h.longitud_m, h.ancho_m).toFixed(2)} ha</span>
                     </div>
-                    <button onClick={() => downloadCartel(h, variedades)} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 14, padding: '4px 6px', lineHeight: 1 }} title="Descargar cartel">
-                      ⬇
-                    </button>
+                    <button onClick={() => downloadCartel(h, variedades, 'a5')} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 14, padding: '4px 6px', lineHeight: 1 }} title="Descargar A5">⬇</button>
+                    <button onClick={() => downloadCartel(h, variedades, 'a4')} style={{ background: 'transparent', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 10, padding: '4px 6px', lineHeight: 1, fontFamily: "'SF Pro Text', system-ui, sans-serif" }} title="Descargar A4">A4</button>
                   </div>
                 )
               })}
@@ -705,7 +709,7 @@ function HileraModal({ data, variedades, onConfirm, onCancel }: {
   )
 }
 
-function downloadCartel(h: Hilera, variedades: Variedad[]) {
+function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' = 'a5') {
   const sp = h.split
   const nombreVarA = variedades.find(v => v.id === (sp ? h.variedad_a_id : h.variedad_id))?.nombre || '—'
   const nombreVarB = sp ? variedades.find(v => v.id === h.variedad_b_id)?.nombre || '—' : null
@@ -717,6 +721,7 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
   const notas = h.notas || ''
 
   const W = 620
+
   const varietySection = sp
     ? `<rect x="30" y="340" width="275" height="80" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
        <rect x="30" y="340" width="275" height="80" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
@@ -731,7 +736,8 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
        <text x="310" y="368" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
   const bottomY = sp ? 455 : 420
-  const svgH = bottomY + 30
+  const contentH = bottomY + 30
+  const svgH = format === 'a4' ? 877 : contentH
 
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
@@ -761,19 +767,23 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
   const svgImg = new Image()
   const logoImg = new Image()
   let loaded = 0
+  const targetW = format === 'a4' ? 2480 : 2480
+  const targetH = format === 'a4' ? 3508 : 1748
+  const scale = targetW / W
   const render = () => {
     loaded++
     if (loaded < 2) return
-    const scale = 4
     const canvas = document.createElement('canvas')
-    canvas.width = W * scale
-    canvas.height = svgH * scale
+    canvas.width = targetW
+    canvas.height = targetH
     const ctx = canvas.getContext('2d')!
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, targetW, targetH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
     ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
     const a = document.createElement('a')
-    a.download = `hilera-${poste}.jpg`
+    a.download = `hilera-${poste}-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
     a.click()
     URL.revokeObjectURL(svgUrl)
