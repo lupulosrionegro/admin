@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+const withSerwist = require('@serwist/next').default({
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+  reloadOnOnline: true,
+})
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -8,4 +14,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withSerwist(nextConfig)
