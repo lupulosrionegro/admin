@@ -271,13 +271,7 @@ export default function HilerasPage() {
       </header>
 
       <div style={{ display: 'flex', flex: 1, position: 'relative' }}>
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          style={{ position: 'absolute', top: 8, left: 8, zIndex: 1000, padding: '6px 10px', background: 'rgba(17,24,17,.95)', border: '1px solid #252d25', color: '#e8f0e0', borderRadius: 4, fontSize: 13, cursor: 'pointer', backdropFilter: 'blur(4px)', display: 'none' }}
-          className="sidebar-toggle"
-        >
-          {sidebarOpen ? '✕ Cerrar' : '☰ Panel'}
-        </button>
+
 
         <MapComponent
           hileras={hilerasList}
@@ -790,9 +784,6 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
   logoImg.onerror = render
   svgImg.src = svgUrl
   logoImg.src = window.location.origin + '/logo-lupulos.png'
-}
-  img.onerror = () => URL.revokeObjectURL(svgUrl)
-  img.src = svgUrl
 }
 
 type LogEntry = { id: number; action: string; summary: string; userEmail: string; createdAt: string }
