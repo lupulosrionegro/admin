@@ -722,22 +722,24 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
   const anio = h.anio || '—'
   const notas = h.notas || ''
 
+  const W = 620
   const varietySection = sp
-    ? `<rect x="30" y="260" width="266" height="70" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="260" width="266" height="70" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="163" y="290" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
-       <text x="163" y="315" text-anchor="middle" font-size="26" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
-       <rect x="304" y="260" width="266" height="70" rx="6" fill="${colorB}44" stroke="${colorB}" stroke-width="2"/>
-       <rect x="304" y="260" width="266" height="70" rx="6" fill="none" stroke="${colorB}" stroke-width="1" opacity="0.3"/>
-       <text x="437" y="290" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
-       <text x="437" y="315" text-anchor="middle" font-size="26" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>`
-    : `<rect x="30" y="255" width="540" height="50" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="255" width="540" height="50" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="300" y="286" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
+    ? `<rect x="30" y="340" width="275" height="80" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
+       <rect x="30" y="340" width="275" height="80" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
+       <text x="167" y="375" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
+       <text x="167" y="405" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
+       <rect x="315" y="340" width="275" height="80" rx="6" fill="${colorB}44" stroke="${colorB}" stroke-width="2"/>
+       <rect x="315" y="340" width="275" height="80" rx="6" fill="none" stroke="${colorB}" stroke-width="1" opacity="0.3"/>
+       <text x="452" y="375" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
+       <text x="452" y="405" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>`
+    : `<rect x="30" y="330" width="560" height="60" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
+       <rect x="30" y="330" width="560" height="60" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
+       <text x="310" y="368" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
-  const bottomY = sp ? 365 : 335
+  const bottomY = sp ? 455 : 420
 
-  const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="${bottomY + 35}" viewBox="0 0 600 ${bottomY + 35}">
+  const svgH = bottomY + 30
+  const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Rye&amp;family=Oswald:wght@400&amp;display=swap');
@@ -745,54 +747,41 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
       .w{font-family:'Oswald',sans-serif}
     </style>
   </defs>
-  <rect width="600" height="${bottomY + 35}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <text x="300" y="85" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="100" x2="575" y2="100" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="30" y="135" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
-  <text x="30" y="200" font-size="90" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
-  <text x="570" y="135" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
-  <text x="570" y="200" font-size="52" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantas}</text>
-  <line x1="25" y1="230" x2="575" y2="230" stroke="#e0e0e0" stroke-width="1"/>
+  <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
+  <image href="${window.location.origin}/logo-lupulos.png" x="${W/2 - 24}" y="20" width="48" height="48"/>
+  <text x="${W/2}" y="85" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="100" x2="${W - 25}" y2="100" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="30" y="140" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
+  <text x="30" y="280" font-size="120" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
+  <text x="${W - 30}" y="140" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
+  <text x="${W - 30}" y="280" font-size="64" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantas}</text>
+  <line x1="25" y1="310" x2="${W - 25}" y2="310" stroke="#e0e0e0" stroke-width="1"/>
   ${varietySection}
-  <line x1="25" y1="${bottomY}" x2="575" y2="${bottomY}" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="30" y="${bottomY + 25}" font-size="14" fill="#444" font-family="monospace">AÑO: ${anio}</text>
-  ${notas ? `<text x="300" y="${bottomY + 25}" font-size="12" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
-  <text x="570" y="${bottomY + 25}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
+  <line x1="25" y1="${bottomY}" x2="${W - 25}" y2="${bottomY}" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="30" y="${bottomY + 22}" font-size="14" fill="#444" font-family="monospace">AÑO: ${anio}</text>
+  ${notas ? `<text x="${W/2}" y="${bottomY + 22}" font-size="12" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
+  <text x="${W - 30}" y="${bottomY + 22}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
 </svg>`
 
+  const img = new Image()
   const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
   const svgUrl = URL.createObjectURL(blob)
-  const svgImg = new Image()
-  const logoImg = new Image()
-  let loaded = 0
-  const tryDownload = () => {
-    loaded++
-    if (loaded < 2) return
-    const scale = 4
-    const w = svgImg.naturalWidth
-    const h = svgImg.naturalHeight
+  img.onload = () => {
     const canvas = document.createElement('canvas')
-    canvas.width = w * scale
-    canvas.height = h * scale
+    const scale = 4
+    canvas.width = W * scale
+    canvas.height = svgH * scale
     const ctx = canvas.getContext('2d')!
     ctx.scale(scale, scale)
-    ctx.globalAlpha = 0.15
-    ctx.drawImage(logoImg, w * 0.08, h * 0.08, w * 0.84, h * 0.84)
-    ctx.globalAlpha = 1
-    ctx.drawImage(svgImg, 0, 0)
-    ctx.drawImage(logoImg, w * 0.46, 18, 48, 48)
+    ctx.drawImage(img, 0, 0)
     const a = document.createElement('a')
     a.download = `hilera-${poste}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
     a.click()
     URL.revokeObjectURL(svgUrl)
   }
-  svgImg.onload = tryDownload
-  svgImg.onerror = () => URL.revokeObjectURL(svgUrl)
-  logoImg.onload = tryDownload
-  logoImg.onerror = tryDownload
-  svgImg.src = svgUrl
-  logoImg.src = window.location.origin + '/logo-lupulos.png'
+  img.onerror = () => URL.revokeObjectURL(svgUrl)
+  img.src = svgUrl
 }
 
 type LogEntry = { id: number; action: string; summary: string; userEmail: string; createdAt: string }
