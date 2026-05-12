@@ -25,7 +25,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <main style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif" }}>
       <div style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: '40px 36px', textAlign: 'center', maxWidth: 360, width: '90%', boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}>
-        <div style={{ fontSize: 48, marginBottom: 12, lineHeight: 1 }}>🌿</div>
+        <div><img src="/cono-de-lupulo.png" alt="Lúpulos" style={{ width: 52, height: 52, display: 'inline-block' }} /></div>
         <div style={{ fontSize: 20, fontWeight: 600, color: '#f5f5f7', marginBottom: 4, letterSpacing: '-0.01em' }}>Panel Admin</div>
         <div style={{ fontSize: 13, color: '#636366', marginBottom: 32, fontWeight: 400 }}>Lupulos Rio Negro</div>
         <form
