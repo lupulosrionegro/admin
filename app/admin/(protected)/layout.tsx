@@ -23,8 +23,21 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
     await signOutNextAuth({ callbackUrl: '/admin/login' })
   }
 
-  if (status === 'loading') return null
-  if (!session) return null
+  if (status === 'loading') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#5fba7a', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      </div>
+    )
+  }
+  if (!session) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#636366', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif", fontSize: 13 }}>
+        Redirigiendo al login...
+      </div>
+    )
+  }
 
   if (isFullScreen) {
     return <>{children}</>
