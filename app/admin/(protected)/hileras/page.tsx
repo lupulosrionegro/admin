@@ -737,8 +737,8 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
        <text x="310" y="368" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
   const bottomY = sp ? 455 : 420
-
   const svgH = bottomY + 30
+
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
     <style>
@@ -748,7 +748,6 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <image href="${window.location.origin}/logo-lupulos.png" x="${W/2 - 24}" y="20" width="48" height="48"/>
   <text x="${W/2}" y="85" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
   <line x1="25" y1="100" x2="${W - 25}" y2="100" stroke="#e0e0e0" stroke-width="1"/>
   <text x="30" y="140" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
@@ -763,23 +762,35 @@ function downloadCartel(h: Hilera, variedades: Variedad[]) {
   <text x="${W - 30}" y="${bottomY + 22}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
 </svg>`
 
-  const img = new Image()
-  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
-  const svgUrl = URL.createObjectURL(blob)
-  img.onload = () => {
-    const canvas = document.createElement('canvas')
+  const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
+  const svgUrl = URL.createObjectURL(svgBlob)
+  const svgImg = new Image()
+  const logoImg = new Image()
+  let loaded = 0
+  const render = () => {
+    loaded++
+    if (loaded < 2) return
     const scale = 4
+    const canvas = document.createElement('canvas')
     canvas.width = W * scale
     canvas.height = svgH * scale
     const ctx = canvas.getContext('2d')!
     ctx.scale(scale, scale)
-    ctx.drawImage(img, 0, 0)
+    ctx.drawImage(svgImg, 0, 0)
+    ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
     const a = document.createElement('a')
     a.download = `hilera-${poste}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
     a.click()
     URL.revokeObjectURL(svgUrl)
   }
+  svgImg.onload = render
+  svgImg.onerror = () => URL.revokeObjectURL(svgUrl)
+  logoImg.onload = render
+  logoImg.onerror = render
+  svgImg.src = svgUrl
+  logoImg.src = window.location.origin + '/logo-lupulos.png'
+}
   img.onerror = () => URL.revokeObjectURL(svgUrl)
   img.src = svgUrl
 }
