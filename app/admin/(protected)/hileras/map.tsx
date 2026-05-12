@@ -33,10 +33,11 @@ function getColorForVariedad(nombre: string): string {
   const colors: Record<string, string> = {
     victoria: '#2ecc71',
     cascade: '#e67e22',
-    bullion: '#9b59b6',
+    bullion: '#7b1fa2',
     willamette: '#1abc9c',
     saaz: '#e74c3c',
     mapuche: '#3498db',
+    traful: '#9b59b6',
     columbus: '#f1c40f',
     centennial: '#e91e63',
     chinook: '#00bcd4',
