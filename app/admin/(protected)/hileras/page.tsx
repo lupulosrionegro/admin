@@ -767,8 +767,8 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   const svgImg = new Image()
   const logoImg = new Image()
   let loaded = 0
-  const targetW = format === 'a4' ? 2480 : 2480
-  const targetH = format === 'a4' ? 3508 : 1748
+  const targetW = format === 'a4' ? 3508 : 2480
+  const targetH = format === 'a4' ? 2480 : 1748
   const scale = targetW / W
   const render = () => {
     loaded++
