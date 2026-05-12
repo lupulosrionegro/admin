@@ -266,7 +266,7 @@ export default function HilerasPage() {
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <span style={{ fontSize: 10, color: '#636366', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>-39.1468° S / -67.1482° O</span>
-          <a href="/admin" style={{ fontSize: 11, color: '#5fba7a', textDecoration: 'none', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>Panel →</a>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ fontSize: 11, color: '#5fba7a', background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500, padding: 0 }}>☰ Panel</button>
         </div>
       </header>
 
