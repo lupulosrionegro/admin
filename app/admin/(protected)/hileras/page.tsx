@@ -260,6 +260,7 @@ export default function HilerasPage() {
       <style>{`@font-face{font-family:'Oswald';src:url('/fonts/Oswald-VariableFont_wght.ttf') format('truetype');font-weight:400 700;}`}</style>
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', height: 44, background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '0.5px solid rgba(255,255,255,0.08)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <a href="/admin" style={{ color: '#98989d', textDecoration: 'none', fontSize: 14, display: 'flex', alignItems: 'center', gap: 4, padding: '4px 8px', borderRadius: 6, transition: 'background 0.15s' }}>← Volver</a>
           <span style={{ fontFamily: "'SF Pro Display', system-ui, sans-serif", fontSize: 12, fontWeight: 600, color: '#5fba7a', letterSpacing: '0.08em' }}>TRAZABILIDAD LÚPULO</span>
           <span style={{ fontSize: 11, color: '#636366', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>Chacra Arana · Río Negro</span>
         </div>

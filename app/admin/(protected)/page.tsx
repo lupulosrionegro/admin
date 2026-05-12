@@ -34,48 +34,49 @@ export default async function AdminDashboard() {
   const totalPlantas = todasHileras.reduce((s, h) => s + (h.plantas || 0), 0)
   const totalHa = todasHileras.reduce((s, h) => s + (h.longitudM * h.anchoM) / 10000, 0)
 
+  const fs = "'SF Pro Text', system-ui, sans-serif"
+
   return (
     <div>
-      <div style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: 22, fontWeight: 600, color: '#c8e8c8', marginBottom: 4 }}>Panel de Hileras</h1>
-        <p style={{ fontSize: 13, color: '#4a7a4a' }}>Gestión de líneas de plantación, carteles y registro de plantas.</p>
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 600, color: '#f5f5f7', marginBottom: 4, letterSpacing: '-0.01em', fontFamily: "'SF Pro Display', system-ui, sans-serif" }}>Panel</h1>
+        <p style={{ fontSize: 13, color: '#636366', fontFamily: fs }}>Gestión de líneas de plantación, carteles y registro de plantas.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: '1.5rem' }}>
-        <div style={{ background: '#1a2e1a', border: '1px solid #2a4a2a', borderRadius: 12, padding: '1rem', textAlign: 'center' }}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: '#5fba7a' }}>{totalHileras}</div>
-          <div style={{ fontSize: 12, color: '#4a7a4a', marginTop: 4 }}>Hileras</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
+        <div style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 14, padding: '16px', textAlign: 'center' }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#5fba7a', fontFamily: fs }}>{totalHileras}</div>
+          <div style={{ fontSize: 12, color: '#636366', marginTop: 4, fontFamily: fs }}>Hileras</div>
         </div>
-        <div style={{ background: '#1a2e1a', border: '1px solid #2a4a2a', borderRadius: 12, padding: '1rem', textAlign: 'center' }}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: '#a8d4a8' }}>{totalPlantas}</div>
-          <div style={{ fontSize: 12, color: '#4a7a4a', marginTop: 4 }}>Plantas</div>
+        <div style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 14, padding: '16px', textAlign: 'center' }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#f5f5f7', fontFamily: fs }}>{totalPlantas}</div>
+          <div style={{ fontSize: 12, color: '#636366', marginTop: 4, fontFamily: fs }}>Plantas</div>
         </div>
-        <div style={{ background: '#1a2e1a', border: '1px solid #2a4a2a', borderRadius: 12, padding: '1rem', textAlign: 'center' }}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: '#d4922a' }}>{totalHa.toFixed(2)}</div>
-          <div style={{ fontSize: 12, color: '#4a7a4a', marginTop: 4 }}>Hectáreas</div>
+        <div style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 14, padding: '16px', textAlign: 'center' }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#5fba7a', fontFamily: fs }}>{totalHa.toFixed(2)}</div>
+          <div style={{ fontSize: 12, color: '#636366', marginTop: 4, fontFamily: fs }}>Hectáreas</div>
         </div>
       </div>
 
-      <div style={{ marginBottom: '1.5rem' }}>
-        <Link href="/admin/hileras"
-          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', background: '#2a5a2a', color: '#c8e8c8', border: '1px solid #3a6a3a', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none' }}>
+      <div style={{ marginBottom: 24 }}>
+        <a href="/admin/hileras" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', background: '#5fba7a', color: '#fff', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 500, textDecoration: 'none', fontFamily: fs }}>
           🗺 Ir al mapa de hileras
-        </Link>
+        </a>
       </div>
 
-      <div style={{ background: '#1a2e1a', border: '1px solid #2a4a2a', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ padding: '12px 16px', borderBottom: '1px solid #1e321e', fontSize: 14, fontWeight: 600, color: '#c8e8c8' }}>🌱 Resumen por variedad</div>
+      <div style={{ background: 'rgba(28,28,30,0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ padding: '12px 16px', borderBottom: '0.5px solid rgba(255,255,255,0.06)', fontSize: 14, fontWeight: 600, color: '#f5f5f7', fontFamily: "'SF Pro Display', system-ui, sans-serif" }}>🌱 Resumen por variedad</div>
         {Object.entries(conteoVariedades).map(([nombre, datos], i) => (
-          <div key={nombre} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: i < Object.keys(conteoVariedades).length - 1 ? '1px solid #1e321e' : 'none' }}>
-            <span style={{ fontSize: 14, color: '#c8e8c8', fontWeight: 500 }}>{nombre}</span>
-            <div style={{ display: 'flex', gap: 20, fontSize: 13, color: '#6a9a6a' }}>
+          <div key={nombre} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: i < Object.keys(conteoVariedades).length - 1 ? '0.5px solid rgba(255,255,255,0.06)' : 'none' }}>
+            <span style={{ fontSize: 13, color: '#f5f5f7', fontWeight: 500, fontFamily: fs }}>{nombre}</span>
+            <div style={{ display: 'flex', gap: 20, fontSize: 13, color: '#98989d', fontFamily: fs }}>
               <span>{datos.hileras} hileras</span>
               <span>{datos.plantas} plantas</span>
             </div>
           </div>
         ))}
         {Object.keys(conteoVariedades).length === 0 && (
-          <div style={{ padding: '2rem', textAlign: 'center', color: '#3a5a3a', fontSize: 13 }}>Sin hileras registradas. Creá la primera desde el mapa.</div>
+          <div style={{ padding: '2rem', textAlign: 'center', color: '#636366', fontSize: 13, fontFamily: fs }}>Sin hileras registradas. Creá la primera desde el mapa.</div>
         )}
       </div>
     </div>
