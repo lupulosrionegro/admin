@@ -1,18 +1,12 @@
-import { NextResponse } from 'next/server'
-import { auth } from '@/lib/auth'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET() {
-  const session = await auth()
-  if (session) {
-    return NextResponse.redirect(new URL('/admin', 'http://localhost:3000'))
-  }
-
+export async function GET(req: NextRequest) {
   const clientId = process.env.GOOGLE_CLIENT_ID
   if (!clientId) {
     return NextResponse.json({ error: 'GOOGLE_CLIENT_ID no configurado' }, { status: 500 })
   }
 
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+  const baseUrl = req.nextUrl.origin
   const redirectUri = `${baseUrl}/api/auth/callback/google`
   const scope = 'openid email profile'
 
