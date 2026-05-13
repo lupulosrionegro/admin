@@ -1,9 +1,15 @@
+import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { hileras, variedades } from '@/lib/schema'
 import { desc, eq } from 'drizzle-orm'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+
+export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
+  const session = await auth()
+  if (!session) redirect('/admin/login')
   const todasHileras = await db.query.hileras.findMany({
     with: { variedad: true, variedadA: true, variedadB: true },
     orderBy: [desc(hileras.createdAt)],

@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth'
 import LoginButton from '@/components/LoginButton'
+import SignOutButton from '@/components/SignOutButton'
 
 export default async function HomePage() {
   const session = await auth()
@@ -33,9 +34,7 @@ export default async function HomePage() {
           </a>
         </div>
         <div style={{ marginTop: 20 }}>
-        <a href="/api/auth/signout" style={{ background: 'none', border: 'none', color: '#636366', cursor: 'pointer', fontSize: 12, textDecoration: 'underline', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" }}>
-          Cerrar sesión
-        </a>
+          <SignOutButton />
         </div>
       </div>
     </main>
