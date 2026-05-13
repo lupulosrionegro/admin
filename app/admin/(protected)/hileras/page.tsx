@@ -569,7 +569,10 @@ function Sidebar({
           </div>
           {savedHileras.length > 0 && (
             <div style={{ marginTop: 8 }}>
-              <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', marginBottom: 4, fontWeight: 600, textTransform: 'uppercase' }}>CARTELES</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', fontWeight: 600, textTransform: 'uppercase' }}>CARTELES</div>
+                <button onClick={() => { savedHileras.forEach((h, i) => setTimeout(() => downloadCartel(h, variedades, 'a4'), i * 600)) }} style={{ background: 'rgba(95,186,122,0.12)', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, color: '#5fba7a', cursor: 'pointer', fontSize: 9, padding: '3px 8px', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>⬇ Todos A4</button>
+              </div>
               {savedHileras.map((h, i) => {
                 const nombreV = h.split
                   ? variedades.find(v => v.id === h.variedad_a_id)?.nombre + ' / ' + variedades.find(v => v.id === h.variedad_b_id)?.nombre
