@@ -21,8 +21,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user }) {
-      if (!user.email) return false
-      if (user.email === process.env.ADMIN_EMAIL) return true
+      if (!user.email || !process.env.ADMIN_EMAIL) return false
+      if (user.email.toLowerCase().trim() === process.env.ADMIN_EMAIL.toLowerCase().trim()) return true
       const autorizado = await db.query.admins.findFirst({
         where: eq(admins.email, user.email),
       })
@@ -42,4 +42,3 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 
 export const { GET, POST } = handlers
-export const handler = handlers
