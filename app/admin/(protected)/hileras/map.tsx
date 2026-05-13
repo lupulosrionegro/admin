@@ -146,13 +146,14 @@ export default function MapComponent({
       bearing: bearing,
     } as any).setView(CHACRA_CENTER, CHACRA_ZOOM)
 
-    L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-      attribution: 'Tiles &copy; Google',
+    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
       maxZoom: 24,
-      maxNativeZoom: 20,
+      maxNativeZoom: 19,
       noWrap: true,
-      detectRetina: true,
     }).addTo(map)
+
+    requestAnimationFrame(() => { map.invalidateSize() })
 
     const drawLayer = L.layerGroup().addTo(map)
     drawLayerRef.current = drawLayer

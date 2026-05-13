@@ -381,21 +381,20 @@ function Sidebar({
     setTimeout(() => setSaved(false), 1200)
   }
 
-  const hectareasPorVariedad: Record<string, number> = {}
+  const metrosPorVariedad: Record<string, number> = {}
   hilerasList.forEach(h => {
-    const area = areaHa(h.longitud_m, h.ancho_m)
     if (h.split) {
-      const media = area / 2
+      const media = h.longitud_m / 2
       const vA = variedades.find(v => v.id === h.variedad_a_id)
       const vB = variedades.find(v => v.id === h.variedad_b_id)
-      if (vA) hectareasPorVariedad[vA.nombre] = (hectareasPorVariedad[vA.nombre] || 0) + media
-      if (vB) hectareasPorVariedad[vB.nombre] = (hectareasPorVariedad[vB.nombre] || 0) + media
+      if (vA) metrosPorVariedad[vA.nombre] = (metrosPorVariedad[vA.nombre] || 0) + media
+      if (vB) metrosPorVariedad[vB.nombre] = (metrosPorVariedad[vB.nombre] || 0) + media
     } else {
       const v = variedades.find(v => v.id === h.variedad_id)
-      if (v) hectareasPorVariedad[v.nombre] = (hectareasPorVariedad[v.nombre] || 0) + area
+      if (v) metrosPorVariedad[v.nombre] = (metrosPorVariedad[v.nombre] || 0) + h.longitud_m
     }
   })
-  const totalHa = Object.values(hectareasPorVariedad).reduce((a, b) => a + b, 0)
+  const totalMts = Object.values(metrosPorVariedad).reduce((a, b) => a + b, 0)
 
   const savedHileras = hilerasList.filter(h => h.poste).sort((a, b) => Number(a.poste) - Number(b.poste))
 
@@ -454,16 +453,16 @@ function Sidebar({
 
       <div style={{ height: 0.5, background: 'rgba(255,255,255,0.06)', margin: '4px 0' }} />
 
-      <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', padding: '10px 12px 4px', fontWeight: 600, textTransform: 'uppercase' }}>HECTÁREAS</div>
-      {Object.entries(hectareasPorVariedad).map(([nombre, ha]) => (
+      <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', padding: '10px 12px 4px', fontWeight: 600, textTransform: 'uppercase' }}>METROS</div>
+      {Object.entries(metrosPorVariedad).map(([nombre, mts]) => (
         <div key={nombre} style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 12px' }}>
           <span style={{ fontSize: 11, color: '#98989d', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>{nombre}</span>
-          <span style={{ fontSize: 12, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: getColorForVariedad(nombre), fontWeight: 500 }}>{ha.toFixed(2)} ha</span>
+          <span style={{ fontSize: 12, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: getColorForVariedad(nombre), fontWeight: 500 }}>{mts.toFixed(1)} m</span>
         </div>
       ))}
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 12px' }}>
         <span style={{ fontSize: 11, color: '#98989d', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>TOTAL</span>
-        <span style={{ fontSize: 13, fontWeight: 600, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#5fba7a' }}>{totalHa.toFixed(2)} ha</span>
+        <span style={{ fontSize: 13, fontWeight: 600, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#5fba7a' }}>{totalMts.toFixed(1)} m</span>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 12px' }}>
         <span style={{ fontSize: 11, color: '#98989d', fontFamily: "'SF Pro Text', system-ui, sans-serif" }}>Hileras</span>
@@ -717,19 +716,19 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   const W = 620
 
   const varietySection = sp
-    ? `<rect x="30" y="340" width="275" height="80" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="340" width="275" height="80" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="167" y="375" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
-       <text x="167" y="405" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
-       <rect x="315" y="340" width="275" height="80" rx="6" fill="${colorB}44" stroke="${colorB}" stroke-width="2"/>
-       <rect x="315" y="340" width="275" height="80" rx="6" fill="none" stroke="${colorB}" stroke-width="1" opacity="0.3"/>
-       <text x="452" y="375" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
-       <text x="452" y="405" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>`
-    : `<rect x="30" y="330" width="560" height="60" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="330" width="560" height="60" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="310" y="368" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
+    ? `<rect x="30" y="300" width="275" height="80" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
+       <rect x="30" y="300" width="275" height="80" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
+       <text x="167" y="335" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
+       <text x="167" y="365" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
+       <rect x="315" y="300" width="275" height="80" rx="6" fill="${colorB}44" stroke="${colorB}" stroke-width="2"/>
+       <rect x="315" y="300" width="275" height="80" rx="6" fill="none" stroke="${colorB}" stroke-width="1" opacity="0.3"/>
+       <text x="452" y="335" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
+       <text x="452" y="365" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>`
+    : `<rect x="30" y="290" width="560" height="60" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
+       <rect x="30" y="290" width="560" height="60" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
+       <text x="310" y="328" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
-  const bottomY = sp ? 455 : 420
+  const bottomY = sp ? 415 : 380
   const contentH = bottomY + 30
   const svgH = format === 'a4' ? Math.max(contentH, 438) : Math.max(contentH, 437)
 
@@ -744,11 +743,11 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
   <text x="${W/2}" y="85" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
   <line x1="25" y1="100" x2="${W - 25}" y2="100" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="30" y="140" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
-  <text x="30" y="280" font-size="120" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
-  <text x="${W - 30}" y="140" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
-  <text x="${W - 30}" y="280" font-size="64" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantas}</text>
-  <line x1="25" y1="310" x2="${W - 25}" y2="310" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="30" y="120" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
+  <text x="30" y="240" font-size="120" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
+  <text x="${W - 30}" y="120" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS · ${nombreVarA.toUpperCase()}${nombreVarB ? ' / ' + nombreVarB.toUpperCase() : ''}</text>
+  <text x="${W - 30}" y="240" font-size="64" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantas}</text>
+  <line x1="25" y1="270" x2="${W - 25}" y2="270" stroke="#e0e0e0" stroke-width="1"/>
   ${varietySection}
   <line x1="25" y1="${bottomY}" x2="${W - 25}" y2="${bottomY}" stroke="#e0e0e0" stroke-width="1"/>
   <text x="30" y="${bottomY + 22}" font-size="14" fill="#444" font-family="monospace">AÑO: ${anio}</text>
