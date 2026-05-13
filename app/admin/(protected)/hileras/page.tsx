@@ -763,8 +763,8 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <text x="${W/2}" y="35" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="48" x2="${W - 25}" y2="48" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${W/2}" y="42" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="55" x2="${W - 25}" y2="55" stroke="#e0e0e0" stroke-width="0.5"/>
   <text x="${L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
   <text x="${L}" y="${numY}" font-size="100" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
   <text x="${W - L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">${sp ? 'TOTAL PLANTAS' : 'PLANTAS'}</text>
@@ -796,7 +796,7 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     ctx.fillRect(0, 0, targetW, actualH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
-    ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
+    ctx.drawImage(logoImg, W/2 - 16, 8, 32, 32)
     const a = document.createElement('a')
     a.download = `hilera-${poste}-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
@@ -830,8 +830,8 @@ function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <text x="${W/2}" y="35" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="48" x2="${W - 25}" y2="48" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${W/2}" y="42" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="55" x2="${W - 25}" y2="55" stroke="#e0e0e0" stroke-width="0.5"/>
   <text x="${L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
   <text x="${L}" y="${numY}" font-size="100" font-weight="bold" fill="#1a2a1a" class="n"> </text>
   <text x="${W - L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
@@ -861,7 +861,7 @@ function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
     ctx.fillRect(0, 0, targetW, actualH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
-    ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
+    ctx.drawImage(logoImg, W/2 - 16, 8, 32, 32)
     const a = document.createElement('a')
     a.download = `cartel-vacio-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
