@@ -83,7 +83,9 @@ function buildCartelHTML(h: Hilera, variedades: Variedad[], printMode = false) {
   const bgA = colorA + '18'
   const colorB = sp ? getColorForVariedad(nombreVarB || '') : null
   const bgB = sp ? colorB + '18' : null
-  const plantas = h.plantas ?? '—'
+  const plantasTotal = h.plantas ?? 0
+  const plantasHalf = sp ? Math.round(plantasTotal / 2) : plantasTotal
+  const plantasStr = h.plantas ?? '—'
   const area = areaHa(h.longitud_m, h.ancho_m).toFixed(2)
   const poste = h.poste || '—'
   const anio = h.anio || '—'
@@ -99,17 +101,20 @@ function buildCartelHTML(h: Hilera, variedades: Variedad[], printMode = false) {
         <div style="flex:1;padding:8px 10px;border-right:1px solid #ddd;background:${bgA}">
           <div style="font-size:9px;color:#555;font-family:monospace">LADO A</div>
           <div style="font-size:14px;font-weight:700;color:#1a2a1a;font-family:monospace">${nombreVarA.toUpperCase()}</div>
-          <div style="font-size:11px;color:#666;font-family:monospace;margin-top:4px">${plantas} plantas</div>
+          <div style="font-size:11px;color:#666;font-family:monospace;margin-top:4px">${plantasHalf} plantas</div>
         </div>
         <div style="flex:1;padding:8px 10px;background:${bgB}">
           <div style="font-size:9px;color:#555;font-family:monospace">LADO B</div>
           <div style="font-size:14px;font-weight:700;color:#1a2a1a;font-family:monospace">${nombreVarB?.toUpperCase()}</div>
-          <div style="font-size:11px;color:#666;font-family:monospace;margin-top:4px">${plantas} plantas</div>
+          <div style="font-size:11px;color:#666;font-family:monospace;margin-top:4px">${plantasHalf} plantas</div>
         </div>
       </div>
       <div style="padding:8px 10px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center">
         <div><div style="font-size:9px;color:#666;font-family:monospace">HILERA N°</div><div style="font-size:24px;font-weight:700;color:#1a2a1a;line-height:1;font-family:${numFont}">${poste}</div></div>
-        <div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center">${logo}</div>
+        <div style="text-align:right">
+          <div style="font-size:9px;color:#666;font-family:monospace">TOTAL PLANTAS</div>
+          <div style="font-size:18px;font-weight:700;color:#1a2a1a;font-family:monospace">${plantasStr}</div>
+        </div>
       </div>
       <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f5f5f5">
         <div style="font-size:10px;color:#444;font-family:monospace">AÑO: ${anio}</div>
@@ -126,7 +131,7 @@ function buildCartelHTML(h: Hilera, variedades: Variedad[], printMode = false) {
           <div style="font-size:26px;font-weight:700;color:#1a2a1a;line-height:1;font-family:${numFont}">${poste}</div></div>
         <div style="text-align:right">
           <div style="font-size:9px;color:#666;font-family:monospace">PLANTAS</div>
-          <div style="font-size:16px;font-weight:700;color:#1a2a1a;font-family:monospace">${plantas}</div>
+          <div style="font-size:16px;font-weight:700;color:#1a2a1a;font-family:monospace">${plantasStr}</div>
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
@@ -566,12 +571,21 @@ function Sidebar({
             <button onClick={() => downloadCartel(selectedHilera, variedades, 'a4')} style={{ flex: 1, padding: '6px', background: 'rgba(95,186,122,0.12)', color: '#5fba7a', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
               ⬇ A4
             </button>
+            <button onClick={() => downloadEmptyCartel('a5')} style={{ flex: 1, padding: '6px', background: 'rgba(255,255,255,0.06)', color: '#98989d', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
+              A5 vacío
+            </button>
+            <button onClick={() => downloadEmptyCartel('a4')} style={{ flex: 1, padding: '6px', background: 'rgba(255,255,255,0.06)', color: '#98989d', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, fontSize: 10, cursor: 'pointer', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>
+              A4 vacío
+            </button>
           </div>
           {savedHileras.length > 0 && (
             <div style={{ marginTop: 8 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                 <div style={{ fontSize: 10, fontFamily: "'SF Pro Text', system-ui, sans-serif", color: '#636366', letterSpacing: '0.05em', fontWeight: 600, textTransform: 'uppercase' }}>CARTELES</div>
-                <button onClick={() => { savedHileras.forEach((h, i) => setTimeout(() => downloadCartel(h, variedades, 'a4'), i * 600)) }} style={{ background: 'rgba(95,186,122,0.12)', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, color: '#5fba7a', cursor: 'pointer', fontSize: 9, padding: '3px 8px', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>⬇ Todos A4</button>
+                <div style={{ display: 'flex', gap: 3 }}>
+                  <button onClick={() => { savedHileras.forEach((h, i) => setTimeout(() => downloadCartel(h, variedades, 'a4'), i * 600)) }} style={{ background: 'rgba(95,186,122,0.12)', border: '0.5px solid rgba(95,186,122,0.3)', borderRadius: 6, color: '#5fba7a', cursor: 'pointer', fontSize: 9, padding: '3px 8px', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>⬇ Todos A4</button>
+                  <button onClick={() => downloadEmptyCartel('a4')} style={{ background: 'rgba(255,255,255,0.06)', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#98989d', cursor: 'pointer', fontSize: 9, padding: '3px 8px', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontWeight: 500 }}>Vacío</button>
+                </div>
               </div>
               {savedHileras.map((h, i) => {
                 const nombreV = h.split
@@ -711,29 +725,32 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   const nombreVarB = sp ? variedades.find(v => v.id === h.variedad_b_id)?.nombre || '—' : null
   const colorA = getColorForVariedad(nombreVarA)
   const colorB = sp ? getColorForVariedad(nombreVarB || '') : null
-  const plantas = h.plantas ?? '—'
+  const plantasTotal = h.plantas ?? 0
+  const plantasStr = h.plantas ?? '—'
+  const plantasHalf = sp ? Math.round(plantasTotal / 2) : plantasTotal
   const poste = h.poste || '—'
   const anio = h.anio || '—'
   const notas = h.notas || ''
 
   const W = 620
+  const pad = 40
+  const topH = 70
+  const boxY = topH + 15
+  const headerH = 95
+  const footerY = 360
+  const svgH = 400
 
-  const varietySection = sp
-    ? `<rect x="30" y="300" width="275" height="80" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="300" width="275" height="80" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="167" y="335" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
-       <text x="167" y="365" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
-       <rect x="315" y="300" width="275" height="80" rx="6" fill="${colorB}44" stroke="${colorB}" stroke-width="2"/>
-       <rect x="315" y="300" width="275" height="80" rx="6" fill="none" stroke="${colorB}" stroke-width="1" opacity="0.3"/>
-       <text x="452" y="335" text-anchor="middle" font-size="14" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
-       <text x="452" y="365" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>`
-    : `<rect x="30" y="290" width="560" height="60" rx="6" fill="${colorA}44" stroke="${colorA}" stroke-width="2"/>
-       <rect x="30" y="290" width="560" height="60" rx="6" fill="none" stroke="${colorA}" stroke-width="1" opacity="0.3"/>
-       <text x="310" y="328" text-anchor="middle" font-size="30" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
-
-  const bottomY = sp ? 415 : 380
-  const contentH = bottomY + 30
-  const svgH = format === 'a4' ? Math.max(contentH, 438) : Math.max(contentH, 437)
+  const varietyHTML = sp
+    ? `<rect x="${pad}" y="${boxY}" width="${(W - 2*pad)/2 - 3}" height="78" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
+       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 22}" text-anchor="middle" font-size="11" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
+       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
+       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 70}" text-anchor="middle" font-size="10" fill="#666" font-family="monospace">${plantasHalf} plantas</text>
+       <rect x="${pad + (W - 2*pad)/2 + 3}" y="${boxY}" width="${(W - 2*pad)/2 - 3}" height="78" rx="6" fill="${colorB}22" stroke="${colorB}" stroke-width="1.5"/>
+       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 22}" text-anchor="middle" font-size="11" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
+       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>
+       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 70}" text-anchor="middle" font-size="10" fill="#666" font-family="monospace">${plantasHalf} plantas</text>`
+    : `<rect x="${pad}" y="${boxY}" width="${W - 2*pad}" height="48" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
+       <text x="${W/2}" y="${boxY + 33}" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
@@ -744,18 +761,29 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <text x="${W/2}" y="85" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="100" x2="${W - 25}" y2="100" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="30" y="120" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
-  <text x="30" y="240" font-size="120" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
-  <text x="${W - 30}" y="120" font-size="13" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS · ${nombreVarA.toUpperCase()}${nombreVarB ? ' / ' + nombreVarB.toUpperCase() : ''}</text>
-  <text x="${W - 30}" y="240" font-size="64" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantas}</text>
-  <line x1="25" y1="270" x2="${W - 25}" y2="270" stroke="#e0e0e0" stroke-width="1"/>
-  ${varietySection}
-  <line x1="25" y1="${bottomY}" x2="${W - 25}" y2="${bottomY}" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="30" y="${bottomY + 22}" font-size="14" fill="#444" font-family="monospace">AÑO: ${anio}</text>
-  ${notas ? `<text x="${W/2}" y="${bottomY + 22}" font-size="12" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
-  <text x="${W - 30}" y="${bottomY + 22}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
+
+  <!-- Header -->
+  <text x="${W/2}" y="30" text-anchor="middle" font-size="10" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- Row 1: Hilera N° and Plantas -->
+  <text x="${pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°
+  <text x="${pad}" y="${topH + 48}" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
+
+  <text x="${W - pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">${sp ? 'TOTAL PLANTAS' : 'PLANTAS'}</text>
+  <text x="${W - pad}" y="${topH + 48}" font-size="32" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantasStr}</text>
+
+  <!-- Line -->
+  <line x1="${pad}" y1="${headerH}" x2="${W - pad}" y2="${headerH}" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- Variety -->
+  ${varietyHTML}
+
+  <!-- Footer -->
+  <line x1="${pad}" y1="${footerY}" x2="${W - pad}" y2="${footerY}" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="${pad}" y="${footerY + 22}" font-size="13" fill="#444" font-family="monospace">AÑO: ${anio}</text>
+  ${notas ? `<text x="${W/2}" y="${footerY + 22}" font-size="11" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
+  <text x="${W - pad}" y="${footerY + 22}" font-size="10" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
 </svg>`
 
   const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
@@ -780,6 +808,65 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
     const a = document.createElement('a')
     a.download = `hilera-${poste}-${format.toUpperCase()}.jpg`
+    a.href = canvas.toDataURL('image/jpeg', 0.92)
+    a.click()
+    URL.revokeObjectURL(svgUrl)
+  }
+  svgImg.onload = render
+  svgImg.onerror = () => URL.revokeObjectURL(svgUrl)
+  logoImg.onload = render
+  logoImg.onerror = render
+  svgImg.src = svgUrl
+  logoImg.src = window.location.origin + '/logo-lupulos.png'
+}
+
+function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
+  const W = 620
+  const pad = 40
+  const svgH = 400
+  const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rye&amp;family=Oswald:wght@400&amp;display=swap');
+      .n{font-family:'Rye',Georgia,serif}
+      .w{font-family:'Oswald',sans-serif}
+    </style>
+  </defs>
+  <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${W/2}" y="30" text-anchor="middle" font-size="10" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="${pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°
+  <text x="${pad}" y="118" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">...</text>
+  <text x="${W - pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
+  <text x="${W - pad}" y="118" font-size="32" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">...</text>
+  <line x1="${pad}" y1="135" x2="${W - pad}" y2="135" stroke="#e0e0e0" stroke-width="1"/>
+  <rect x="${pad}" y="150" width="${W - 2*pad}" height="48" rx="6" fill="#f0f0f0" stroke="#ccc" stroke-width="1" stroke-dasharray="6,4"/>
+  <line x1="${pad}" y1="360" x2="${W - pad}" y2="360" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="${pad}" y="382" font-size="13" fill="#444" font-family="monospace">AÑO: ______</text>
+  <text x="${W - pad}" y="382" font-size="10" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
+</svg>`
+  const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
+  const svgUrl = URL.createObjectURL(svgBlob)
+  const svgImg = new Image()
+  const logoImg = new Image()
+  let loaded = 0
+  const targetW = format === 'a4' ? 3508 : 2480
+  const scale = targetW / W
+  const actualH = Math.round(svgH * scale)
+  const render = () => {
+    loaded++
+    if (loaded < 2) return
+    const canvas = document.createElement('canvas')
+    canvas.width = targetW
+    canvas.height = actualH
+    const ctx = canvas.getContext('2d')!
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, targetW, actualH)
+    ctx.scale(scale, scale)
+    ctx.drawImage(svgImg, 0, 0)
+    ctx.drawImage(logoImg, W/2 - 24, 20, 48, 48)
+    const a = document.createElement('a')
+    a.download = `cartel-vacio-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
     a.click()
     URL.revokeObjectURL(svgUrl)

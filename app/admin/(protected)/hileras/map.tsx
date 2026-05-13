@@ -137,7 +137,7 @@ export default function MapComponent({
     if (!el || !el.parentElement) return
 
     const map = L.map('hileras-map', {
-      maxZoom: 24,
+      maxZoom: 22,
       minZoom: 15,
       zoomSnap: 0,
       zoomDelta: 0.5,
@@ -146,10 +146,10 @@ export default function MapComponent({
       bearing: bearing,
     } as any).setView(CHACRA_CENTER, CHACRA_ZOOM)
 
-    const tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: '&copy; Esri, Earthstar Geographics',
-      maxZoom: 24,
-      maxNativeZoom: 19,
+    const tileLayer = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+      attribution: '&copy; Google',
+      maxZoom: 22,
+      maxNativeZoom: 22,
       noWrap: true,
     }).addTo(map)
 
