@@ -21,11 +21,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user }) {
-      if (!user.email || !process.env.ADMIN_EMAIL) return false
-      if (user.email.toLowerCase().trim() === process.env.ADMIN_EMAIL.toLowerCase().trim()) return true
+      console.log('[signIn] user.email:', user.email)
+      console.log('[signIn] ADMIN_EMAIL:', process.env.ADMIN_EMAIL)
+      if (!user.email || !process.env.ADMIN_EMAIL) {
+        console.log('[signIn] missing email or ADMIN_EMAIL')
+        return false
+      }
+      if (user.email.toLowerCase().trim() === process.env.ADMIN_EMAIL.toLowerCase().trim()) {
+        console.log('[signIn] matches ADMIN_EMAIL')
+        return true
+      }
       const autorizado = await db.query.admins.findFirst({
         where: eq(admins.email, user.email),
       })
+      console.log('[signIn] autorizado:', autorizado)
       return !!autorizado
     },
     async session({ session, user }) {

@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react'
 export default function LoginButton() {
   return (
     <button
-      onClick={() => signIn('google', { redirectTo: '/' })}
+      onClick={() => signIn('google', { redirectTo: '/admin' })}
       style={{ width: '100%', padding: '12px 20px', background: '#5fba7a', color: '#fff', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" }}
     >
       <svg width="18" height="18" viewBox="0 0 24 24">
