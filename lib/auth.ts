@@ -7,8 +7,8 @@ import { users, accounts, sessions, verificationTokens, admins } from '@/lib/sch
 import { eq } from 'drizzle-orm'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+  trustHost: !process.env.AUTH_URL,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV !== 'production',
   adapter: DrizzleAdapter(db, {
     usersTable: users,
