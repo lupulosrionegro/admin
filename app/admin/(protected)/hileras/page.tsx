@@ -733,24 +733,26 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   const notas = h.notas || ''
 
   const W = 620
-  const pad = 40
-  const topH = 70
-  const boxY = topH + 15
-  const headerH = 95
-  const footerY = 360
-  const svgH = 400
+  const L = 30
+  const labelY = 115
+  const numY = 250
+  const sepY = 285
+  const varietyY = 310
+  const varietyH = sp ? 80 : 60
+  const bottomY = varietyY + varietyH + 30
+  const svgH = bottomY + 30
 
   const varietyHTML = sp
-    ? `<rect x="${pad}" y="${boxY}" width="${(W - 2*pad)/2 - 3}" height="78" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
-       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 22}" text-anchor="middle" font-size="11" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
-       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
-       <text x="${pad + (W - 2*pad)/4}" y="${boxY + 70}" text-anchor="middle" font-size="10" fill="#666" font-family="monospace">${plantasHalf} plantas</text>
-       <rect x="${pad + (W - 2*pad)/2 + 3}" y="${boxY}" width="${(W - 2*pad)/2 - 3}" height="78" rx="6" fill="${colorB}22" stroke="${colorB}" stroke-width="1.5"/>
-       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 22}" text-anchor="middle" font-size="11" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
-       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>
-       <text x="${pad + 3*(W - 2*pad)/4}" y="${boxY + 70}" text-anchor="middle" font-size="10" fill="#666" font-family="monospace">${plantasHalf} plantas</text>`
-    : `<rect x="${pad}" y="${boxY}" width="${W - 2*pad}" height="48" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
-       <text x="${W/2}" y="${boxY + 33}" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
+    ? `<rect x="${L}" y="${varietyY}" width="275" height="80" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
+       <text x="${L + 137}" y="${varietyY + 24}" text-anchor="middle" font-size="12" font-family="monospace" fill="#555" font-weight="bold">LADO A</text>
+       <text x="${L + 137}" y="${varietyY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>
+       <text x="${L + 137}" y="${varietyY + 70}" text-anchor="middle" font-size="11" fill="#666" font-family="monospace">${plantasHalf} plantas</text>
+       <rect x="${L + 285}" y="${varietyY}" width="275" height="80" rx="6" fill="${colorB}22" stroke="${colorB}" stroke-width="1.5"/>
+       <text x="${L + 425}" y="${varietyY + 24}" text-anchor="middle" font-size="12" font-family="monospace" fill="#555" font-weight="bold">LADO B</text>
+       <text x="${L + 425}" y="${varietyY + 50}" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarB?.toUpperCase()}</text>
+       <text x="${L + 425}" y="${varietyY + 70}" text-anchor="middle" font-size="11" fill="#666" font-family="monospace">${plantasHalf} plantas</text>`
+    : `<rect x="${L}" y="${varietyY}" width="${W - 2*L}" height="${varietyH}" rx="6" fill="${colorA}22" stroke="${colorA}" stroke-width="1.5"/>
+       <text x="${W/2}" y="${varietyY + 35}" text-anchor="middle" font-size="26" font-weight="bold" fill="#1a2a1a" class="n">${nombreVarA.toUpperCase()}</text>`
 
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
@@ -761,29 +763,18 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-
-  <!-- Header -->
-  <text x="${W/2}" y="30" text-anchor="middle" font-size="10" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
-
-  <!-- Row 1: Hilera N° and Plantas -->
-  <text x="${pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
-  <text x="${pad}" y="${topH + 48}" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
-
-  <text x="${W - pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">${sp ? 'TOTAL PLANTAS' : 'PLANTAS'}</text>
-  <text x="${W - pad}" y="${topH + 48}" font-size="32" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantasStr}</text>
-
-  <!-- Line -->
-  <line x1="${pad}" y1="${headerH}" x2="${W - pad}" y2="${headerH}" stroke="#e0e0e0" stroke-width="1"/>
-
-  <!-- Variety -->
+  <text x="${W/2}" y="35" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="48" x2="${W - 25}" y2="48" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
+  <text x="${L}" y="${numY}" font-size="100" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
+  <text x="${W - L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">${sp ? 'TOTAL PLANTAS' : 'PLANTAS'}</text>
+  <text x="${W - L}" y="${numY}" font-size="52" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">${plantasStr}</text>
+  <line x1="${L}" y1="${sepY}" x2="${W - L}" y2="${sepY}" stroke="#e0e0e0" stroke-width="0.5"/>
   ${varietyHTML}
-
-  <!-- Footer -->
-  <line x1="${pad}" y1="${footerY}" x2="${W - pad}" y2="${footerY}" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="${pad}" y="${footerY + 22}" font-size="13" fill="#444" font-family="monospace">AÑO: ${anio}</text>
-  ${notas ? `<text x="${W/2}" y="${footerY + 22}" font-size="11" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
-  <text x="${W - pad}" y="${footerY + 22}" font-size="10" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
+  <line x1="${L}" y1="${bottomY}" x2="${W - L}" y2="${bottomY}" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${L}" y="${bottomY + 22}" font-size="13" fill="#444" font-family="monospace">AÑO: ${anio}</text>
+  ${notas ? `<text x="${W/2}" y="${bottomY + 22}" font-size="11" fill="#888" font-family="monospace" text-anchor="middle">${notas}</text>` : ''}
+  <text x="${W - L}" y="${bottomY + 22}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
 </svg>`
 
   const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
@@ -822,8 +813,14 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
 
 function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
   const W = 620
-  const pad = 40
-  const svgH = 400
+  const L = 30
+  const labelY = 115
+  const numY = 250
+  const sepY = 285
+  const varietyY = 310
+  const varietyH = 60
+  const bottomY = varietyY + varietyH + 30
+  const svgH = bottomY + 30
   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">
   <defs>
     <style>
@@ -833,17 +830,17 @@ function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
     </style>
   </defs>
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
-  <text x="${W/2}" y="30" text-anchor="middle" font-size="10" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
-  <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="${pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
-  <text x="${pad}" y="118" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">...</text>
-  <text x="${W - pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
-  <text x="${W - pad}" y="118" font-size="32" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">...</text>
-  <line x1="${pad}" y1="135" x2="${W - pad}" y2="135" stroke="#e0e0e0" stroke-width="1"/>
-  <rect x="${pad}" y="150" width="${W - 2*pad}" height="48" rx="6" fill="#f0f0f0" stroke="#ccc" stroke-width="1" stroke-dasharray="6,4"/>
-  <line x1="${pad}" y1="360" x2="${W - pad}" y2="360" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="${pad}" y="382" font-size="13" fill="#444" font-family="monospace">AÑO: ______</text>
-  <text x="${W - pad}" y="382" font-size="10" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
+  <text x="${W/2}" y="35" text-anchor="middle" font-size="11" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
+  <line x1="25" y1="48" x2="${W - 25}" y2="48" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
+  <text x="${L}" y="${numY}" font-size="100" font-weight="bold" fill="#1a2a1a" class="n"> </text>
+  <text x="${W - L}" y="${labelY}" font-size="12" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
+  <text x="${W - L}" y="${numY}" font-size="52" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end"> </text>
+  <line x1="${L}" y1="${sepY}" x2="${W - L}" y2="${sepY}" stroke="#e0e0e0" stroke-width="0.5"/>
+  <rect x="${L}" y="${varietyY}" width="${W - 2*L}" height="${varietyH}" rx="6" fill="#f5f5f5" stroke="#ddd" stroke-width="1" stroke-dasharray="6,4"/>
+  <line x1="${L}" y1="${bottomY}" x2="${W - L}" y2="${bottomY}" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="${L}" y="${bottomY + 22}" font-size="13" fill="#444" font-family="monospace">AÑO: ______</text>
+  <text x="${W - L}" y="${bottomY + 22}" font-size="11" fill="#999" class="w" text-anchor="end">www.lupulosrionegro.com</text>
 </svg>`
   const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
   const svgUrl = URL.createObjectURL(svgBlob)

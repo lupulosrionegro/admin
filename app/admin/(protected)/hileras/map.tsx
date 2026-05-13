@@ -279,6 +279,8 @@ export default function MapComponent({
 
     drawLayer.clearLayers()
 
+    requestAnimationFrame(() => { map.invalidateSize() })
+
     hilerasRef.current.forEach((h, idx) => {
       const nombreV = getVariedadNombre(h)
       const color = getColorForVariedad(nombreV)
