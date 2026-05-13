@@ -144,7 +144,7 @@ function buildCartelHTML(h: Hilera, variedades: Variedad[], printMode = false) {
 
 const MapComponent = dynamic(
   () => import('./map'),
-  { ssr: false, loading: () => <div style={{ flex: 1, background: '#0d120d', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4a7a4a', fontSize: 13 }}>Cargando mapa...</div> }
+  { ssr: false, loading: () => <div style={{ flex: 1, background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#636366', fontSize: 13 }}>Cargando mapa...</div> }
 )
 
 export default function HilerasPage() {

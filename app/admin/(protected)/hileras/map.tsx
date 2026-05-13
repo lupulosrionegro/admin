@@ -146,14 +146,15 @@ export default function MapComponent({
       bearing: bearing,
     } as any).setView(CHACRA_CENTER, CHACRA_ZOOM)
 
-    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    const tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri, Earthstar Geographics',
       maxZoom: 24,
       maxNativeZoom: 19,
       noWrap: true,
     }).addTo(map)
 
     requestAnimationFrame(() => { map.invalidateSize() })
+    setTimeout(() => { map.invalidateSize() }, 300)
 
     const drawLayer = L.layerGroup().addTo(map)
     drawLayerRef.current = drawLayer
@@ -318,12 +319,12 @@ export default function MapComponent({
   }, [hileras, selectedIdx, getVariedadNombre])
 
   return (
-    <div style={{ flex: 1, position: 'relative', background: '#0d120d' }}>
-      <div id="hileras-map" style={{ height: '100%', width: '100%', background: '#1a241a' }} />
-      <div id="hint" style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', background: 'rgba(10,14,10,.95)', border: '1px solid #1e281e', color: '#6a7a6a', fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, padding: '5px 12px', borderRadius: 3, pointerEvents: 'none', whiteSpace: 'nowrap', zIndex: 1000 }}>
+    <div style={{ flex: 1, position: 'relative', background: '#111' }}>
+      <div id="hileras-map" style={{ height: '100%', width: '100%', background: '#1a1a1a' }} />
+      <div id="hint" style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', background: 'rgba(28,28,30,0.9)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '0.5px solid rgba(255,255,255,0.08)', color: '#98989d', fontFamily: "'SF Pro Text', system-ui, sans-serif", fontSize: 10, padding: '5px 12px', borderRadius: 8, pointerEvents: 'none', whiteSpace: 'nowrap', zIndex: 1000 }}>
         📍 Hacé clic en el mapa para empezar una hilera → segundo clic para finalizar
       </div>
-      <div id="coord-info" style={{ position: 'absolute', top: 8, right: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#3d5a3d', background: 'rgba(10,14,10,.8)', padding: '3px 9px', borderRadius: 3, zIndex: 1000, pointerEvents: 'none' }}>
+      <div id="coord-info" style={{ position: 'absolute', top: 8, right: 8, fontFamily: "'SF Pro Text', system-ui, sans-serif", fontSize: 9, color: '#636366', background: 'rgba(28,28,30,0.8)', padding: '3px 9px', borderRadius: 6, zIndex: 1000, pointerEvents: 'none' }}>
         Lat: -39.1468, Lng: -67.1482
       </div>
       <div style={{ position: 'absolute', bottom: 20, right: 10, display: 'flex', flexDirection: 'column', gap: 2, zIndex: 1000 }}>

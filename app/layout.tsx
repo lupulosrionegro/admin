@@ -9,11 +9,15 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
-      { url: '/cono-de-lupulo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: { url: '/cono-de-lupulo.png', sizes: '192x192', type: 'image/png' },
-    shortcut: { url: '/cono-de-lupulo.png', type: 'image/png' },
+    apple: [
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: { url: '/android-chrome-192x192.png', type: 'image/png' },
   },
   other: {
     'theme-color': '#0a0a0a',
@@ -28,15 +32,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <head>
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/cono-de-lupulo.png" />
-        <link rel="apple-touch-icon" sizes="192x192" href="/cono-de-lupulo.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/android-chrome-192x192.png" />
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LRN Admin" />
+        <script dangerouslySetInnerHTML={{ __html: "if('serviceWorker'in navigator)navigator.serviceWorker.getRegistrations().then(r=>r.forEach(s=>s.unregister()))" }} />
       </head>
       <body>
-        <script src="/register-sw.js" async />
         <Providers>
           {children}
         </Providers>
