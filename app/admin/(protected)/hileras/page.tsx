@@ -796,7 +796,7 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
     ctx.fillRect(0, 0, targetW, actualH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
-    ctx.drawImage(logoImg, W/2 - 12, 3, 24, 24)
+    ctx.drawImage(logoImg, W/2 - 14, 12, 28, 28)
     const a = document.createElement('a')
     a.download = `hilera-${poste}-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
@@ -861,7 +861,7 @@ function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
     ctx.fillRect(0, 0, targetW, actualH)
     ctx.scale(scale, scale)
     ctx.drawImage(svgImg, 0, 0)
-    ctx.drawImage(logoImg, W/2 - 12, 3, 24, 24)
+    ctx.drawImage(logoImg, W/2 - 14, 12, 28, 28)
     const a = document.createElement('a')
     a.download = `cartel-vacio-${format.toUpperCase()}.jpg`
     a.href = canvas.toDataURL('image/jpeg', 0.92)
