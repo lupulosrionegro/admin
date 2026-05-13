@@ -767,7 +767,7 @@ function downloadCartel(h: Hilera, variedades: Variedad[], format: 'a5' | 'a4' =
   <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
 
   <!-- Row 1: Hilera N° and Plantas -->
-  <text x="${pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°
+  <text x="${pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
   <text x="${pad}" y="${topH + 48}" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">${poste}</text>
 
   <text x="${W - pad}" y="${topH}" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">${sp ? 'TOTAL PLANTAS' : 'PLANTAS'}</text>
@@ -835,7 +835,7 @@ function downloadEmptyCartel(format: 'a5' | 'a4' = 'a5') {
   <rect width="${W}" height="${svgH}" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="0.5"/>
   <text x="${W/2}" y="30" text-anchor="middle" font-size="10" fill="#999" font-family="monospace" font-weight="bold" letter-spacing="2">LÚPULOS RÍO NEGRO</text>
   <line x1="25" y1="42" x2="${W - 25}" y2="42" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="${pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°
+  <text x="${pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2">HILERA N°</text>
   <text x="${pad}" y="118" font-size="52" font-weight="bold" fill="#1a2a1a" class="n">...</text>
   <text x="${W - pad}" y="70" font-size="11" fill="#888" font-family="monospace" font-weight="bold" letter-spacing="2" text-anchor="end">PLANTAS</text>
   <text x="${W - pad}" y="118" font-size="32" font-weight="bold" fill="#1a2a1a" font-family="monospace" text-anchor="end">...</text>
